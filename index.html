@@ -213,6 +213,9 @@
 
                     const img = document.createElement("img");
                     img.src = icons[name] || "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+		    img.onerror = function() {
+                	this.src = "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+		    };
                     img.alt = `${name} Icon`;
 
                     const infoDiv = document.createElement("div");
