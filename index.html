@@ -4,33 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExtPrint3r</title>
+    <style>
+    	@import url('"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+	* {
+	    font-family: "Roboto";
+            font-weight: 400;
+	}
+
+        body {
+            background-color: #1e1f22;
+            color: #9dbae9;
+        }
+
+	.extension-container {
+        	margin-left: 20px;
+    	    display: flex;
+    	    flex-direction: column-reverse;
+    	    align-items: flex-start;
+    	    justify-content: space-between;
+    	    gap: 10px;
+    	    margin-bottom: 10px;
+    	    padding: 10px;
+    	    border-radius: 10px;
+    	    width: 375px;
+    	    height: 140px;
+    	    position: relative;
+    	    background: #292a2d;
+	}
+
+	.extension-info {
+    	    display: flex;
+    	    align-items: center;
+    	    margin: 10px;
+    	    gap: 8px;
+    	    justify-content: flex-end;
+	}
+
+	.extension-name {
+    	    font-size: 13px;
+    	    color: white;
+	}
+
+	.extension-container img {
+    	    width: 40px;
+    	    height: 40px;
+	}
+
+	.extension-container button {
+    	    background: transparent;
+    	    color: #9dbae9;
+    	    font-weight: bold;
+    	    border: 1px solid #047db7;
+    	    border-radius: 20px;
+    	    width: 80px;
+    	    height: 35px;
+    	    padding: 7px 10px;
+    	    cursor: pointer;
+    	    align-self: flex-end;
+    	    transition: background 0.2s ease-in-out;
+	}
+
+	.extension-container button:hover {
+    	    background: #38393b;
+	}
+
+        a {
+            color: #9dbae9;
+        }
+       
+       h3 {
+    	    margin-left: 20px;
+    	    color: white;
+    	    margin-top: 20px;
+	}
+    </style>
 </head>
 <body>
     <h2>ExtPrint3r (W.I.P.)</h2>
-    <p>This is ExtHang3r but it uses printing which makes it much faster and last way longer. To use it, open the extension's setting page in a new window, then go back to this tab and press the hang button. Then, go back to the settings page and flip the "Allow access to file URLs" switch. Close that tab and go back to this one. Press cancel on the print popup, and then you can close this tab. The extension should've been killed, and this will last from 30 minutes to 2 hours (depending on your computer)<p>
-    <select id="iframeSelect"></select>
-    <button id="hangButton" onclick="createIframesAndPrint()">Hang</button>
+    <p>This is ExtHang3r but it uses printing which makes it much faster and last way longer...</p>
+    <h3>All Extensions</h3>
+    <div id="button-container"></div>
     <div id="iframe-container"></div>
-  	<footer>
-    	<p>Made by <a href="https://github.com/Blobby-Boi/">Blobby Boi</a></p>
-  	</footer>
+    
+    <footer>
+        <p>Made by <a href="https://github.com/Blobby-Boi/">Blobby Boi</a></p>
+    </footer>
+
     <script>
-    
-     async function checkExtensionURL(url) {
-      try {
-        const response = await fetch(url);
-        if (response.ok) {
-          return true;
-        } else {
-          return false;
+        async function checkExtensionURL(url) {
+            try {
+                const response = await fetch(url);
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
         }
-      } catch (error) {
-        return false;
-      }
-    }
-    
-    async function populateSelectOptions() {
-      const selectElement = document.getElementById("iframeSelect");
+
+        async function createExtensionButtons() {
+            const container = document.getElementById("button-container");
       const extensions = {
 	"Securly (3rd ID)": "chrome-extension://ckecmkbnoanpgplccmnoikfmpcdladkc/fonts/Metropolis.css",
 	"Securly (2nd ID)": "chrome-extension://joflmkccibkooplaeoinecjbmdebglab/fonts/Metropolis.css",
@@ -67,32 +138,81 @@
 	"Lugus School": "chrome-extension://eoobggamkobbcpiojefejfglbfcacgca/assets/images/icon_128.png",
       };
 
-      let hasSupportedExtensions = false;
+      const icons = {
+	"Securly (3rd ID)": "https://resources.finalsite.net/images/f_auto,q_auto/v1624943346/d70k12ilus/t0iwdjo2upb1hwmylkk3/securly-180x180.png",
+	"Securly (2nd ID)": "https://resources.finalsite.net/images/f_auto,q_auto/v1624943346/d70k12ilus/t0iwdjo2upb1hwmylkk3/securly-180x180.png",
+        "Securly (1st ID)": "https://resources.finalsite.net/images/f_auto,q_auto/v1624943346/d70k12ilus/t0iwdjo2upb1hwmylkk3/securly-180x180.png",
+        "GoGuardian": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuQVphWeZygNb-W-mnYGW9UlrXG2CO1iyaMQ&s",
+        "LANSchool": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaHo9DehFe6jAuxjFU-O0yOlBgVFnoFkxFmUbAfqNlK38LxBuMiOYT&usqp=CAE&s",
+        "Linewize": "https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/f23cec1c-1e86-4dc3-9e77-ce04c063ef21.jpeg",
+        "Blocksi": "https://cdn-1.webcatalog.io/catalog/blocksi/blocksi-icon-filled-256.png?v=1728875332583",
+        "FortiGuard": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgnKe55CehjQp3lqViwR5yihXr1RbAYp36sw&s",
+        "Cisco Umbrella": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyHpBz6OITqeUaAOtUfaKrad8FcdKYM_iCFQ&s",
+        "ContentKeeper": "chrome-extension://jdogphakondfdmcanpapfahkdomaicfa/img/ckauth19x.png",
+        "CK-Authenticator G3": "https://images.sftcdn.net/images/t_app-icon-m/p/0574e955-fd29-4865-88d8-067b1f9ed9f8/2259205865/ckauthenticator-logo",
+        "Securly Classroom": "https://support.securly.com/hc/article_attachments/360096864374",
+        "Hapara (2nd ID)": "chrome-extension://kbohafcopfpigkjdimdcdgenlhkmhbnc/blocked.html",
+        "Hapara (1st ID)": "chrome-extension://aceopacgaepdcelohobicpffbbejnfac/blocked.html",
+        "iboss": "chrome-extension://kmffehbidlalibfeklaefnckpidbodff/restricted.html",
+        "Lightspeed Digital Insight Agent": "chrome-extension://njdniclgegijdcdliklgieicanpmcngj/js/wasm_exec.js",
+        "Lightspeed Filter Agent": "chrome-extension://adkcpkpghahmbopkjchobieckeoaoeem/icon-128.png",
+        "Lightspeed Classroom": "chrome-extension://kkbmdgjggcdajckdlbngdjonpchpaiea/assets/icon-classroom-128.png",
+        "InterCLASS Filtering Service": "chrome-extension://jbddgjglgkkneonnineaohdhabjbgopi/pages/message-page.html",
+        "InterSafe GatewayConnection Agent": "chrome-extension://ecjoghccnjlodjlmkgmnbnkdcbnjgden/resources/options.js",
+        "LoiLo Web Filters": "chrome-extension://pabjlbjcgldndnpjnokjakbdofjgnfia/image/allow_icon/shield_green_128x128.png",
+        "Gopher Buddy": "chrome-extension://cgbbbjmgdpnifijconhamggjehlamcif/images/gopher-buddy_128x128_color.png",
+        "LanSchool Web Helper": "chrome-extension://honjcnefekfnompampcpmcdadibmjhlk/blocked.html",
+        "IMTLazarus": "chrome-extension://cgigopjakkeclhggchgnhmpmhghcbnaf/models/model.json",
+        "Impero Backdrop": "chrome-extension://jjpmjccpemllnmgiaojaocgnakpmfgjg/licenses.html",
+        "Mobile Guardian": "chrome-extension://fgmafhdohjkdhfaacgbgclmfgkgokgmb/block.html",
+        "NetSupport School Student": "chrome-extension://gcjpefhffmcgplgklffgbebganmhffje/_locales/lt/messages.json",
+        "Lightspeed Alert Agent": "chrome-extension://gcjpefhffmcgplgklffgbebganmhffje/_locales/lt/in_page.js",
+        "Lockdown Browser": "chrome-extension://fogjeanjfbiombghnmkmmophfeccjdki/manifest.json",
+        "Linewize Filter": "chrome-extension://ifinpabiejbjobcphhaomiifjibpkjlf/background/assets/pages/default-blocked.html",
+        "Borderless Classroom Student": "chrome-extension://kdpgkligilplaanoablcpjahjjeghcl/pages/blockPage.html",
+	"LockDown Browser AP Classroom Edition": "chrome-extension://djpknfecbncogekjnjppojlaipeobkmo/assets/images/icon_128.png",
+	"Lugus School": "chrome-extension://eoobggamkobbcpiojefejfglbfcacgca/assets/images/icon_128.png",
+      };
+      
+            let hasSupportedExtensions = false;
 
-      for (const [name, url] of Object.entries(extensions)) {
-        if (await checkExtensionURL(url)) {
-          const option = document.createElement("option");
-          option.value = url;
-          option.textContent = name;
-          selectElement.appendChild(option);
-          hasSupportedExtensions = true;
+            for (const [name, url] of Object.entries(extensions)) {
+                if (await checkExtensionURL(url)) {
+                    const div = document.createElement("div");
+                    div.classList.add("extension-container");
+
+                    const img = document.createElement("img");
+                    img.src = icons[name];
+                    img.alt = `${name} Icon`;
+
+                    const infoDiv = document.createElement("div");
+                    infoDiv.classList.add("extension-info");
+
+                    const nameText = document.createElement("span");
+                    nameText.classList.add("extension-name");
+                    nameText.textContent = name;
+
+                    const button = document.createElement("button");
+                    button.textContent = "Hang";
+                    button.onclick = () => createIframesAndPrint(url);
+
+                    infoDiv.appendChild(img);
+                    infoDiv.appendChild(nameText);
+                    div.appendChild(button);
+                    div.appendChild(infoDiv);
+                    container.appendChild(div);
+                    hasSupportedExtensions = true;
+                }
+            }
+
+            if (!hasSupportedExtensions) {
+                container.innerHTML = "<p>No supported extensions installed.</p>";
+            }
         }
-      }
 
-      if (!hasSupportedExtensions) {
-        const option = document.createElement("option");
-        option.value = "";
-        option.textContent = "No supported extensions installed";
-        selectElement.appendChild(option);
-        hangButton.style.display = "none";
-      }
-    }
-
-    populateSelectOptions();
-    
-        function createIframesAndPrint() {
+        function createIframesAndPrint(extPage) {
             const iframeContainer = document.getElementById('iframe-container');
-            const extPage = document.getElementById("iframeSelect").value;
+            iframeContainer.innerHTML = '';
             
             for (let i = 0; i < 1000; i++) {
                 const iframe = document.createElement('iframe');
@@ -101,11 +221,15 @@
                 iframe.height = "10";
                 iframeContainer.appendChild(iframe);
             }
+            
             window.print();
+            
             setTimeout(() => {
                 iframeContainer.innerHTML = '';
             }, 100);
         }
+
+        createExtensionButtons();
     </script>
 </body>
 </html>
