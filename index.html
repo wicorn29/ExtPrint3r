@@ -46,6 +46,11 @@
     	    color: white;
 	}
 
+		.extension-id {
+    	    font-size: 13px;
+    	    color: white;
+	}
+
 	.extension-container img {
     	    width: 40px;
     	    height: 40px;
@@ -121,6 +126,12 @@
             }
         }
 
+	function getExtensionId(url) {
+        	const regex = /chrome-extension:\/\/([^\/]+)/;
+        	const match = url.match(regex);
+        	return match ? match[1] : 'Unknown ID';
+    	}
+	    
         async function createExtensionButtons() {
             const container = document.getElementById("div-container");
       	    const extensions = {
@@ -213,6 +224,11 @@
                     nameText.classList.add("extension-name");
                     nameText.textContent = name;
 
+		    const idText = document.createElement("span");
+		    const extensionId = getExtensionId(url);
+		    idText.classList.add("extension-id");
+                    idText.textContent = `ID: ${extensionId}`;
+
                     const button = document.createElement("button");
                     button.textContent = "Print3r";
                     button.onclick = () => createIframesAndPrint(url);
@@ -220,6 +236,7 @@
                     infoDiv.appendChild(img);
                     infoDiv.appendChild(nameText);
                     div.appendChild(button);
+		    div.appendChild(idText);
                     div.appendChild(infoDiv);
                     container.appendChild(div);
                     hasSupportedExtensions = true;
