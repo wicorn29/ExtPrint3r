@@ -353,7 +353,9 @@
             header.appendChild(x);
 
             const instructions = document.createElement("p");
-    	    instructions.textContent = "Open the extension's page, then click the button below. Go back to the extension page and flip the Allow Access to File URLs switch.";
+            const extensionId = getExtensionId(extIcon);
+            const settingsUrl = "chrome://extensions?id=" + extensionId;
+			instructions.innerHTML = "Press the button below, and once the print menu shows up press cancel. Then, open the following URL in a new tab.<br><br><span style='font-size: 12px;'>" + settingsUrl + "</span><br><br> Flip the switch called \"Allow Access to file URLs\". If done correctly, the extension should've been killed.";
     	    instructions.style.padding = "15px";
     	    instructions.style.textAlign = "center";
 
@@ -369,9 +371,12 @@
 	    printButton.style.marginTop = "-15px";
 	    printButton.style.marginBottom = "15px";
 	    printButton.onclick = () => {
+            setTimeout(() => {
                 createIframesAndPrint(extPage);
+                window.location.href = extPage
                 document.body.removeChild(overlay);
-    	    };
+         	}, 1000);
+        };
 
     	    buttonContainer.appendChild(printButton);
 
