@@ -13,23 +13,24 @@
 
         body {
             background-color: #1e1f22;
-            color: #9dbae9;
+            color: white;
         }
 
 	.extension-container {
-            margin-left: 20px;
+            margin-left: 12px;
+            margin-bottom: 12px;
     	    display: flex;
     	    flex-direction: column-reverse;
     	    align-items: flex-start;
     	    justify-content: space-between;
     	    gap: 10px;
-    	    margin-bottom: 10px;
     	    padding: 10px;
     	    border-radius: 10px;
     	    width: 375px;
     	    height: 140px;
     	    position: relative;
     	    background: #292a2d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	}
 
 	.extension-info {
@@ -76,19 +77,36 @@
     	    margin-left: 20px;
     	    color: white;
     	    margin-top: 20px;
+            margin-left: 120px;
+	}
+    
+    	#div-container {
+    	    display: flex;
+    	    flex-wrap: wrap;
+    	    margin-left: 120px;
+    	    width: 100% - 20px;
+	}
+
+	footer {
+    	    width: 100%;
+    	    text-align: center;
+    	    margin-top: 20px;
+    	    padding: 10px 0;
 	}
     </style>
 </head>
 <body>
-    <h2>ExtPrint3r (W.I.P.)</h2>
+    <div style="display: flex; align-items: center;">
+        <img src="https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/icon.png" width="50px" height="50px" style="margin-right: 10px;">
+        <h2>ExtPrint3r</h2>
+    </div>
     <p>This is ExtHang3r but it uses printing which makes it much faster and last way longer...</p>
     <h3>All Extensions</h3>
-    <div id="button-container"></div>
-    <div id="iframe-container"></div>
-    
+    <div id="div-container"></div>
     <footer>
         <p>Made by <a href="https://github.com/Blobby-Boi/">Blobby Boi</a></p>
     </footer>
+    <div id="iframe-container"></div>
 
     <script>
         async function checkExtensionURL(url) {
@@ -101,7 +119,7 @@
         }
 
         async function createExtensionButtons() {
-            const container = document.getElementById("button-container");
+            const container = document.getElementById("div-container");
       const extensions = {
 	"Securly (3rd ID)": "chrome-extension://ckecmkbnoanpgplccmnoikfmpcdladkc/fonts/Metropolis.css",
 	"Securly (2nd ID)": "chrome-extension://joflmkccibkooplaeoinecjbmdebglab/fonts/Metropolis.css",
@@ -219,6 +237,7 @@
                 iframe.src = extPage;
                 iframe.width = "10";
                 iframe.height = "10";
+                iframe.style.border = "none";
                 iframeContainer.appendChild(iframe);
             }
             
