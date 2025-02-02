@@ -57,7 +57,7 @@
     	    height: 40px;
 	}
 
-	.extension-container button {
+	button {
     	    background: transparent;
     	    color: #9dbae9;
     	    font-weight: bold;
@@ -71,7 +71,7 @@
     	    transition: background 0.2s ease-in-out;
 	}
 
-	.extension-container button:hover {
+	button:hover {
     	    background: #38393b;
 	}
 
@@ -232,8 +232,8 @@
                     idText.textContent = `ID: ${extensionId}`;
 
                     const button = document.createElement("button");
-                    button.textContent = "Print3r";
-                    button.onclick = () => createIframesAndPrint(url);
+                    button.textContent = "Hang";
+button.onclick = () => createPopup(name, icons[name], url);
 
                     infoDiv.appendChild(img);
                     infoDiv.appendChild(nameText);
@@ -271,6 +271,126 @@
         }
 
         createExtensionButtons();
+        
+function createPopup(extName, extIcon, extPage) {
+    const overlay = document.createElement("div");
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = "100vw";
+    overlay.style.height = "100vh";
+    overlay.style.background = "rgba(0, 0, 0, 0.6)";
+    overlay.style.zIndex = "999";
+    overlay.style.display = "flex";
+    overlay.style.justifyContent = "center";
+    overlay.style.alignItems = "center";
+
+    const popup = document.createElement("div");
+    popup.style.background = "#292a2d";
+    popup.style.color = "white";
+    popup.style.width = "500px";
+    popup.style.borderRadius = "10px";
+    popup.style.overflow = "hidden";
+    popup.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
+    popup.style.transition = "transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+    const header = document.createElement("div");
+    header.style.display = "flex";
+    header.style.alignItems = "center";
+    header.style.justifyContent = "space-between";
+    header.style.background = "#1e1f22";
+    header.style.padding = "10px";
+    header.style.borderBottom = "1px solid #444";
+
+    const icon = document.createElement("img");
+    icon.src = extIcon;
+    icon.style.width = "32px";
+    icon.style.height = "32px";
+    icon.style.marginLeft = "10px";
+    icon.style.marginRight = "8px";
+    icon.style.marginBottom = "5px";
+    icon.style.marginTop = "5px";
+    icon.style.userSelect = "none";
+
+    const title = document.createElement("span");
+    title.textContent = extName;
+    title.style.userSelect = "none";
+
+    const leftSection = document.createElement("div");
+    leftSection.style.display = "flex";
+    leftSection.style.alignItems = "center";
+    leftSection.appendChild(icon);
+    leftSection.appendChild(title);
+
+	const x = document.createElement("span");
+	x.textContent = "×";
+	x.style.background = "transparent";
+	x.style.color = "#9aa0a6";
+	x.style.fontSize = "24px";
+	x.style.marginRight = "-4px";
+	x.style.marginTop = "-22px";
+	x.style.cursor = "pointer";
+	x.style.userSelect = "none";
+	x.style.borderRadius = "50%";
+	x.style.padding = "0";
+	x.style.width = "32px";
+	x.style.height = "32px";
+	x.style.lineHeight = "32px";
+	x.style.textAlign = "center";
+	x.style.display = "inline-block";
+
+	x.onmouseover = () => {
+ 		x.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+	};	
+
+	x.onmouseout = () => {
+  		x.style.backgroundColor = "transparent";
+	};
+
+	x.onclick = () => document.body.removeChild(overlay);
+
+    header.appendChild(leftSection);
+    header.appendChild(x);
+
+    const instructions = document.createElement("p");
+    instructions.textContent = "Open the extension's page, then click the button below. Go back to the extension page and flip the Allow Access to File URLs switch.";
+    instructions.style.padding = "15px";
+    instructions.style.textAlign = "center";
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.justifyContent = "center";
+    buttonContainer.style.padding = "10px";
+
+    const printButton = document.createElement("button");
+    printButton.textContent = "The Print3r";
+    printButton.style.userSelect = "none";
+    printButton.style.width = "100px";
+	printButton.style.marginTop = "-15px";
+    printButton.style.marginBottom = "15px";
+    printButton.onclick = () => {
+        createIframesAndPrint(extPage);
+        document.body.removeChild(overlay);
+    };
+
+    buttonContainer.appendChild(printButton);
+
+    overlay.onclick = (event) => {
+        if (event.target === overlay) {
+            popup.style.transform = "scale(1.03)";
+            setTimeout(() => {
+                popup.style.transform = "scale(1)";
+            }, 200);
+        }
+    };
+
+    popup.appendChild(header);
+    popup.appendChild(instructions);
+    popup.appendChild(buttonContainer);
+
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+}
     </script>
 </body>
 </html>
