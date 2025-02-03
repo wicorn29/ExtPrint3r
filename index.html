@@ -455,7 +455,7 @@
             const instructions = document.createElement("p");
             const extensionId = getExtensionId(extIcon);
             const settingsUrl = "chrome://extensions?id=" + extensionId;
-            instructions.innerHTML = "Press the button below, and once the print menu shows up press cancel. Then, open the following URL in a new tab.<br><br><span style='font-size: 12px;'>" + settingsUrl + "</span><br><br> Flip the switch called \"Allow Access to file URLs\". If done correctly, the extension should've been killed.";
+            instructions.innerHTML = "Open the following URL in a new tab.<br><br><span style='font-size: 12px;'>" + settingsUrl + "</span><br><br> Then, go back to this one and press the button below. Once the print menu shows up, switch to the other tab and flip the switch called \"Allow Access to file URLs\". You can close that tab now. Go back to this tab and cancel on the print popup. If done correctly, the extension " + extName + " should've been killed.";
             instructions.style.padding = "15px";
             instructions.style.textAlign = "center";
 
