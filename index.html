@@ -233,23 +233,27 @@
             document.getElementById("printer-option").classList.add("selected");
 	});
 
-	document.querySelector(".option").addEventListener("click", function (e) {
-            let ripple = document.createElement("span");
-            ripple.classList.add("ripple");
+	document.querySelectorAll(".option").forEach(option => {
+    	    option.addEventListener("click", function (e) {
+        	this.querySelectorAll(".ripple").forEach(ripple => ripple.remove());
 
-            let rect = this.getBoundingClientRect();
-            let size = Math.max(rect.width, rect.height);
-            ripple.style.width = ripple.style.height = `${size}px`;
+        	let ripple = document.createElement("span");
+        	ripple.classList.add("ripple");
 
-            let x = e.clientX - rect.left - size / 2;
-            let y = e.clientY - rect.top - size / 2;
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
+       		let rect = this.getBoundingClientRect();
+        	let size = Math.max(rect.width, rect.height);
+        	ripple.style.width = ripple.style.height = `${size}px`;
 
-            this.appendChild(ripple);
+        	let x = e.clientX - rect.left - size / 2;
+        	let y = e.clientY - rect.top - size / 2;
+        	ripple.style.left = `${x}px`;
+        	ripple.style.top = `${y}px`;
 
-            setTimeout(() => ripple.remove(), 600);
-        });
+        	this.appendChild(ripple);
+
+        	setTimeout(() => ripple.remove(), 600);
+    	    });
+	});
 	    
         async function checkExtensionURL(url) {
             try {
