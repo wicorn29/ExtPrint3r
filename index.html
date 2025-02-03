@@ -470,10 +470,8 @@
             printButton.style.marginTop = "-15px";
             printButton.style.marginBottom = "15px";
             printButton.onclick = () => {
-                setTimeout(() => {
-                    createIframesAndPrint(extPage);
-                    document.body.removeChild(overlay);
-                }, 1000);
+                createIframesAndPrint(extPage);
+                document.body.removeChild(overlay);
             };
 
             buttonContainer.appendChild(printButton);
