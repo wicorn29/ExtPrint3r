@@ -190,7 +190,7 @@
         <div class="option" id="printer-option">The Exploit</div>
         <div class="option" id="about-option">About</div>
         <div style="border-top: 1px solid #444; margin-top: 10px; padding-top: 10px; width: 100%;"></div>
-        <p style="text-align: center; margin-left: -10px;">Made by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a></p>
+        <p style="text-align: center; margin-left: -10px; user-select: none;">Made by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a></p>
     </div>
     <div class="main-content">
         <div id="printer-tab">
@@ -198,8 +198,8 @@
         	<div id="div-container"></div>
 		</div>
 		<div id="about-tab" style="display: none;">
-       		<h2>About ExtPrint3r</h2>
-        	<p>ExtPrint3r is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to ExtHang3r. The exploit recreates the behavior of the LTMEAT Print method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r uses, since it of also works with extension pages (as long as its under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
+       		<h2 style="user-select: none;">About ExtPrint3r</h2>
+        	<p style="user-select: none;">ExtPrint3r is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to ExtHang3r. The exploit recreates the behavior of the LTMEAT Print method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r uses, since it of also works with extension pages (as long as its under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
 		</div>
     </div>
 
@@ -325,6 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         this.src = "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
                     };
                     img.alt = `${name} Icon`;
+		    img.style.userSelect = "none";
 
                     const infoDiv = document.createElement("div");
                     infoDiv.classList.add("extension-info");
