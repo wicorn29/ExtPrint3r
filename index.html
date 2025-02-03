@@ -354,17 +354,16 @@
             const iframeContainer = document.getElementById('iframe-container');
             iframeContainer.innerHTML = '';
             
-            for (let i = 0; i < 1000; i++) {
+            for (let i = 0; i < 2500; i++) {
                 const iframe = document.createElement('iframe');
                 iframe.src = extPage;
-                iframe.width = "10";
-                iframe.height = "10";
+                iframe.width = "25px";
+                iframe.height = "25px";
                 iframe.style.border = "none";
                 iframeContainer.appendChild(iframe);
             }
             
             window.print();
-            
             setTimeout(() => {
                 iframeContainer.innerHTML = '';
             }, 100);
