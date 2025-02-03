@@ -45,6 +45,8 @@
     	}
 
     	.side-panel .option {
+	    position: relative;
+	    overflow: hidden;
     	    margin: 10px 0;
             font-size: 18px;
             cursor: pointer;
@@ -173,6 +175,21 @@
     	    margin-left: 10px;
 	}
 
+	.ripple {
+            position: absolute;
+            border-radius: 25%;
+            transform: scale(0);
+            background: rgba(0, 0, 0, 0.2);
+            animation: ripple-animation 0.2s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -197,7 +214,7 @@
 	</div>
     </div>
     <div id="iframe-container"></div>
-    <script>
+    <script>	    
     	document.getElementById("printer-option").addEventListener("click", function() {
     	    document.getElementById("printer-tab").style.display = "block";
     	    document.getElementById("about-tab").style.display = "none";
@@ -216,6 +233,24 @@
             document.getElementById("printer-option").classList.add("selected");
 	});
 
+	document.querySelector(".option").addEventListener("click", function (e) {
+            let ripple = document.createElement("span");
+            ripple.classList.add("ripple");
+
+            let rect = this.getBoundingClientRect();
+            let size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+
+            let x = e.clientX - rect.left - size / 2;
+            let y = e.clientY - rect.top - size / 2;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
+        });
+	    
         async function checkExtensionURL(url) {
             try {
                 const response = await fetch(url);
