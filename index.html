@@ -5,178 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExtPrint3r</title>
     <style>
-    	@import url('"https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+    	@import url('"https://fonts.googleapis.com/css2?family=Roboto:ital,wght:@400;&display=swap');
 	* {
 	    font-family: "Roboto";
-        font-weight: 400;
 	}
 
-    body {
-        background-color: #1e1f22;
-        color: white;
-        display: flex;
-        margin-left: 250px;
-    }
+    	body {
+            background-color: #1e1f22;
+            color: white;
+            display: flex;
+            margin-left: 250px;
+        }
 
-    .side-panel {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100vh;
-        background-color: #292a2d;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        border-right: 1px solid #444;
-    }
+    	.side-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background-color: #292a2d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-right: 1px solid #444;
+        }
 
-    .side-panel img {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 20px;
-	user-select: none;
-    }
+        .side-panel img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+	    user-select: none;
+    	}
 
-    .side-panel h2 {
-        font-weight: bold;
-        margin-bottom: 40px;
-	user-select: none;
-    }
+    	.side-panel h2 {
+    	    font-weight: bold;
+    	    margin-bottom: 40px;
+	    user-select: none;
+    	}
 
-    .side-panel .option {
-        margin: 10px 0;
-        font-size: 18px;
-        cursor: pointer;
-        user-select: none;
-        border-radius: 10px;
-        height: 50px;
-        display: flex;
-    	align-items: center;
-        padding-left: 50px;
-        margin-left: -50px;
-    }
+    	.side-panel .option {
+    	    margin: 10px 0;
+            font-size: 18px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 10px;
+            height: 50px;
+            display: flex;
+    	    align-items: center;
+            padding-left: 50px;
+            margin-left: -50px;
+    	}
 
-    .side-panel .option:hover {
-        background-color: #38393b;
-        color: white;
-    }
+    	.side-panel .option:hover {
+            background-color: #38393b;
+            color: white;
+    	}
 
-    .side-panel .option.selected {
-        background-color: #8ab4f8;
-        color: black;
-    }
+    	.side-panel .option.selected {
+            background-color: #8ab4f8;
+            color: black;
+    	}
 
-    .side-panel footer {
-        margin-top: auto;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 14px;
-        color: #c4c7c5;
-    }
+    	.side-panel footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #c4c7c5;
+    	}
 
-    .side-panel footer a {
-        color: #9dbae9;
-    }
+   	 .side-panel footer a {
+            color: #9dbae9;
+    	}
 
-    .side-panel footer a:hover {
-        text-decoration: underline;
-    }
+    	.side-panel footer a:hover {
+            text-decoration: underline;
+    	}
 
-    .main-content {
-        flex-grow: 1;
-        padding: 20px;
-    }
+    	.main-content {
+            flex-grow: 1;
+            padding: 20px;
+    	}
 
-    .extension-container {
-        margin-left: 12px;
-        margin-bottom: 12px;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 10px;
-        border-radius: 10px;
-        width: 375px;
-        height: 140px;
-        position: relative;
-        background: #292a2d;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+    	.extension-container {
+            margin-left: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            width: 375px;
+            height: 140px;
+            position: relative;
+            background: #292a2d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    	}
 
-    .extension-info {
-        display: flex;
-        align-items: center;
-        margin: 10px;
-        gap: 8px;
-        justify-content: flex-end;
-    }
+    	.extension-info {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            gap: 8px;
+            justify-content: flex-end;
+    	}
 
-    .extension-name {
-        font-size: 13px;
-        color: white;
-    }
+    	.extension-name {
+            font-size: 13px;
+            color: white;
+    	}
 
-    .extension-id {
-        font-size: 13px;
-        color: #c4c7c5;
-        margin-left: 10px;
-    }
+    	.extension-id {
+            font-size: 13px;
+            color: #c4c7c5;
+            margin-left: 10px;
+   	 }
 
-    .extension-container img {
-        width: 40px;
-        height: 40px;
-    }
+   	.extension-container img {
+            width: 40px;
+            height: 40px;
+   	}
 
-    button {
-        background: transparent;
-        color: #9dbae9;
-        font-weight: bold;
-        border: 1px solid #047db7;
-        border-radius: 20px;
-        width: 80px;
-        height: 35px;
-        padding: 7px 10px;
-        cursor: pointer;
-        align-self: flex-end;
-        transition: background 0.2s ease-in-out;
-        outline: none;
-    }
+    	button {
+            background: transparent;
+            color: #9dbae9;
+            font-weight: bold;
+            border: 1px solid #047db7;
+            border-radius: 20px;
+            width: 80px;
+            height: 35px;
+            padding: 7px 10px;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: background 0.2s ease-in-out;
+            outline: none;
+    	}
 
-    button:hover {
-        background: #38393b;
-    }
+   	button:hover {
+            background: #38393b;
+   	}
 
-    button:focus {
-        background-color: #047db7;
-        color: white;
-    }
+    	button:focus {
+            background-color: #047db7;
+            color: white;
+    	}
 
-    a {
-        color: #9dbae9;
-    }
+    	a {
+            color: #9dbae9;
+    	}
 
-    h3 {
-        margin-left: 35px;
-        color: white;
-        margin-top: 20px;
-    }
+    	h3 {
+            margin-left: 35px;
+            color: white;
+            margin-top: 20px;
+    	}
 
-    #div-container {
-        display: flex;
-        flex-wrap: wrap;
-        margin-left: 20px;
-        width: 100% - 20px;
-    }
+    	#div-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 20px;
+            width: 100% - 20px;
+    	}
     
-    #about-tab {
-    	margin-left: 50px;
+    	#about-tab {
+    	    margin-left: 50px;
 	}
     
-    #printer-tab {
-    	margin-left: 10px;
+    	#printer-tab {
+    	    margin-left: 10px;
 	}
 
     </style>
@@ -194,7 +193,7 @@
     </div>
     <div class="main-content">
         <div id="printer-tab">
-        	<h3>All Extensions</h3>
+        	<h3 style="user-select: none;">All Extensions</h3>
         	<div id="div-container"></div>
 		</div>
 		<div id="about-tab" style="display: none;">
@@ -202,28 +201,26 @@
         	<p style="user-select: none;">ExtPrint3r is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to ExtHang3r. The exploit recreates the behavior of the LTMEAT Print method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r uses, since it of also works with extension pages (as long as its under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
 		</div>
     </div>
-
     <div id="iframe-container"></div>
-
     <script>
     
-    document.getElementById("printer-option").addEventListener("click", function() {
-    document.getElementById("printer-tab").style.display = "block";
-    document.getElementById("about-tab").style.display = "none";
-    this.classList.add("selected");
-    document.getElementById("about-option").classList.remove("selected");
-});
+    	document.getElementById("printer-option").addEventListener("click", function() {
+    	    document.getElementById("printer-tab").style.display = "block";
+    	    document.getElementById("about-tab").style.display = "none";
+    	    this.classList.add("selected");
+    	    document.getElementById("about-option").classList.remove("selected");
+	});
 
-document.getElementById("about-option").addEventListener("click", function() {
-    document.getElementById("printer-tab").style.display = "none";
-    document.getElementById("about-tab").style.display = "block";
-    this.classList.add("selected");
-    document.getElementById("printer-option").classList.remove("selected");
-});
+	document.getElementById("about-option").addEventListener("click", function() {
+    	    document.getElementById("printer-tab").style.display = "none";
+    	    document.getElementById("about-tab").style.display = "block";
+    	    this.classList.add("selected");
+    	    document.getElementById("printer-option").classList.remove("selected");
+	});
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("printer-option").classList.add("selected");
-});
+	document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById("printer-option").classList.add("selected");
+	});
 
         async function checkExtensionURL(url) {
             try {
