@@ -197,7 +197,7 @@
 		</div>
 		<div id="about-tab" style="display: none;">
        		<h2>About ExtPrint3r</h2>
-        	<p>ExtPrint3r is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to ExtHang3r. The exploit's goal is to recreates the behavior of the LTMEAT Print method. This was achieved by flooding the page with iframes and then printing it. For whatever reason, printing a page with a ton of iframes pointing to an extension hangs the extension, and it's much more consistent than other extension-freezing methods.</p>
+        	<p>ExtPrint3r is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to ExtHang3r. The exploit recreates the behavior of the LTMEAT Print method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r uses, since it of also works with extension pages (as long as its under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
 		</div>
     </div>
 
