@@ -472,7 +472,6 @@
             printButton.onclick = () => {
                 setTimeout(() => {
                     createIframesAndPrint(extPage);
-                    window.location.href = extPage
                     document.body.removeChild(overlay);
                 }, 1000);
             };
