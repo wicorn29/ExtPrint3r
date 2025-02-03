@@ -53,7 +53,7 @@
         display: flex;
     	align-items: center;
         padding-left: 50px;
-        margin-left: -50px; /* Move buttons 50px to the left */
+        margin-left: -50px;
     }
 
     .side-panel .option:hover {
@@ -338,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const button = document.createElement("button");
                     button.textContent = "Hang";
+		    button.style.userSelect = "none";
                     button.onclick = () => createPopup(name, icons[name], url);
 
                     infoDiv.appendChild(img);
@@ -471,7 +472,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const printButton = document.createElement("button");
             printButton.textContent = "The Print3r";
-            printButton.style.userSelect = "none";
             printButton.style.width = "100px";
             printButton.style.marginTop = "-15px";
             printButton.style.marginBottom = "15px";
