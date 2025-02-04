@@ -411,11 +411,13 @@
                     printerBody.appendChild(iframe);
            	}
 		printerWindow.print();
-		let iframes = printerWindow.document.querySelectorAll("iframe");
-    	    	iframes.forEach(iframe => iframe.remove());
-            	setTimeout(() => {
-    		    printerWindow.close();
-	    	}, 100);
+		printerWindow.onafterprint = () => {
+            	    let iframes = printerWindow.document.querySelectorAll("iframe");
+                    iframes.forEach(iframe => iframe.remove());
+            	    setTimeout(() => {
+                	printerWindow.close();
+            	    }, 100);
+        	};
 	    }, 250);
         }
 
