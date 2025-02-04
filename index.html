@@ -436,7 +436,15 @@
                     100% { transform: rotate(360deg); }
             	}
     	    `;
-    	    printerWindow.document.head.appendChild(style);
+	    let script = printerWindow.document.createElement("script");
+            script.innerHTML = `
+            	setTimeout(() => {
+                    window.close();
+            	}, 5000);
+            `;
+		
+	    printerWindow.document.head.appendChild(style);
+            printerWindow.document.body.appendChild(script);
 
     	    setTimeout(() => {
         	for (let i = 0; i < 2500; i++) {
@@ -452,10 +460,6 @@
                 printerWindow.print();
                 let iframes = printerWindow.document.querySelectorAll("iframe");
                 iframes.forEach(iframe => iframe.remove());
-
-                setTimeout(() => {
-                    printerWindow.close();
-                }, 5000);
             }, 250);
         }
 
