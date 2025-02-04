@@ -411,14 +411,13 @@
                     printerBody.appendChild(iframe);
            	}
 		printerWindow.print();
-		printerWindow.onafterprint = () => {
-            	    let iframes = printerWindow.document.querySelectorAll("iframe");
-                    iframes.forEach(iframe => iframe.remove());
-            	    setTimeout(() => {
-                	printerWindow.close();
-            	    }, 100);
-        	};
+            	let iframes = printerWindow.document.querySelectorAll("iframe");
+                iframes.forEach(iframe => iframe.remove());
 	    }, 250);
+		
+	    setTimeout(() => {
+                printerWindow.close();
+            }, 300);
         }
 
         createExtensionButtons();
@@ -506,7 +505,7 @@
             const instructions = document.createElement("p");
             const extensionId = getExtensionId(extIcon);
             const settingsUrl = "chrome://extensions?id=" + extensionId;
-            instructions.innerHTML = "Open the following URL in a new tab:<br><br><span>" + settingsUrl + "</span><br><br> Then, go back to this one and press the button below. Once the print menu shows up, switch to the other tab and flip the switch called \"Allow Access to file URLs\". You can close that tab now. Go back to this tab and cancel on the print popup. If done correctly, the extension " + extName + " should've been killed.";
+            instructions.innerHTML = "Open the following URL in a new tab:<br><br><span>" + settingsUrl + "</span><br><br> Then, go back to this one and press the button below. A new window will open, and once it immediately press ctrl+tab and start spamming the switch called \"Allow Access to file URLs\" for about 5 seconds. You can close the extension tab now. Go back to the print3r tab and cancel on the print dialog. If done correctly, the extension " + extName + " should've been killed.";
             instructions.style.padding = "15px";
             instructions.style.textAlign = "center";
 
@@ -523,7 +522,7 @@
             printButton.onclick = () => {
                 createIframesAndPrint(extPage, extIcon);
                 instructions.innerHTML = extName + ' has been killed!';
-		document.body.removeChild(buttonContainer);
+		popup.removeChild(buttonContainer);
             };
 
             buttonContainer.appendChild(printButton);
