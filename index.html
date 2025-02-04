@@ -548,7 +548,7 @@
             const instructions = document.createElement("p");
             const extensionId = getExtensionId(extIcon);
             const settingsUrl = "chrome://extensions?id=" + extensionId;
-            instructions.innerHTML = "Open the following URL in a new tab:<br><br><span>" + settingsUrl + "</span><br><br> Then, go back to this one and press the button below. A new window will open, and once it immediately press ctrl+tab and start spamming the switch called \"Allow Access to file URLs\" for about 5 seconds. You can close the extension tab now. Go back to the print3r tab and cancel on the print dialog. If done correctly, the extension " + extName + " should've been killed.";
+            instructions.innerHTML = "Open the following URL in a new tab:<br><br><span>" + settingsUrl + "</span><br><br> Then, go back to this one and press the button below. A new window will open, and once it immediately press ctrl+tab and start spamming the switch called \"Allow Access to file URLs\" for about 5 seconds. Once you are done close the extension tab, and then go back to other tab cancel on the print dialog. If done correctly, the extension " + extName + " should've been killed.";
             instructions.style.padding = "15px";
             instructions.style.textAlign = "center";
 
