@@ -389,36 +389,36 @@
                 container.innerHTML = "<p style='margin-left: 15px; font-size: 12px;'>No supported extensions installed \:(\</p>";
             }
         }
+	
+	        function createIframesAndPrint(extPage, extIcon) {
+		    let printerWindow = window.open("", "_blank");
+		    printerWindow.document.title = 'The Print3r';
+		    printerWindow.document.body.style.backgroundColor = '#1e1f22';
+		    let icon = printerWindow.document.createElement('link');
+	    	    icon.rel = 'icon';
+	  	    icon.href = extIcon;
+	   	    icon.type = 'image/x-icon';
+	   	    printerWindow.document.head.appendChild(icon);
+		    let printerBody = printerWindow.document.body;
 
-        function createIframesAndPrint(extPage, extIcon) {
-	    let printerWindow = window.open("", "_blank");
-	    printerWindow.document.title = 'The Print3r';
-	    printerWindow.document.body.style.backgroundColor = '#1e1f22';
-	    let icon = printerWindow.document.createElement('link');
-    	    icon.rel = 'icon';
-  	    icon.href = extIcon;
-   	    icon.type = 'image/x-icon';
-   	    printerWindow.document.head.appendChild(icon);
-	    let printerBody = printerWindow.document.body;
-
-	    setTimeout(() => {
-            	for (let i = 0; i < 2500; i++) {
-                    const iframe = document.createElement('iframe');
-                    iframe.src = extPage;
-                    iframe.width = "25px";
-                    iframe.height = "25px";
-                    iframe.style.border = "none";
-                    printerBody.appendChild(iframe);
-           	}
-		printerWindow.print();
-            	let iframes = printerWindow.document.querySelectorAll("iframe");
-                iframes.forEach(iframe => iframe.remove());
-	    }, 250);
-		
-            setTimeout(function () {
-                printerWindow.close();
-            }, 300);
-        }
+		    setTimeout(() => {
+	            	for (let i = 0; i < 2500; i++) {
+	                    const iframe = document.createElement('iframe');
+	                    iframe.src = extPage;
+	                    iframe.width = "25px";
+	                    iframe.height = "25px";
+	                    iframe.style.border = "none";
+	                    printerBody.appendChild(iframe);
+	           	}
+			    
+			printerWindow.print();
+	            	let iframes = printerWindow.document.querySelectorAll("iframe");
+	                iframes.forEach(iframe => iframe.remove());
+			setTimeout(() => {
+                    	    printerWindow.close();
+                	}, 5000);
+		    }, 250);
+	        }
 
         createExtensionButtons();
         
