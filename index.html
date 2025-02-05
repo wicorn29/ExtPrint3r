@@ -167,7 +167,7 @@
             width: 100% - 20px;
     	}
     
-    	#about-tab {
+    	#about-tab, #settings-tab {
     	    margin-left: 50px;
 	}
     
@@ -198,8 +198,9 @@
             <img src="https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/icon.png" width="50px" height="50px" style="margin-right: 10px;">
             <h2>ExtPrint3r</h2>
     	</div>
-        <div class="option" id="printer-option">The Exploit</div>
-        <div class="option" id="about-option">About</div>
+        <div class="option" data-name="printer-tab">The Exploit</div>
+        <div class="option" data-name="settings-tab">Settings</div>
+        <div class="option" data-name="about-tab">About</div>
         <div style="border-top: 1px solid #444; margin-top: 10px; padding-top: 10px; width: 100%;"></div>
         <p style="text-align: center; margin-left: -10px; user-select: none;">Made by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a></p>
     </div>
@@ -212,24 +213,70 @@
        	    <h2 style="user-select: none;">About ExtPrint3r</h2>
             <p style="user-select: none; line-height: 1.5;"><b>ExtPrint3r</b> is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to <b>ExtHang3r</b>. The exploit recreates the behavior of the <b>LTMEAT Print</b> method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long as they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
 	</div>
+    <div id="settings-tab" style="display: none;">
+        <h2 style="user-select: none;">Settings</h2>
+        <!-- Normal settings go below here -->
+        <hr>
+        <!-- Developer settings/actions go below here -->
+        <label for="developer-mode">ExtPrint3r Developer Mode</label><input id="developer-mode" type="checkbox"><br>
+        <div id="dev-settings" style="display: none;">
+            <p>DO NOT COMPLAIN ABOUT FEATURE IN DEV MODE NOT WORKING, THIS IS ONLY FOR PEOPLE WHO KNOW WHAT THEY ARE DOING</p>
+            <button style="min-width:250px;" id="add-ext">Temporarily Add Extension To List</button>
+        </div>
+     <!-- <p style="user-select: none; line-height: 1.5;"><b>ExtPrint3r</b> is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to <b>ExtHang3r</b>. The exploit recreates the behavior of the <b>LTMEAT Print</b> method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long as they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p> -->
+    </div>
     </div>
     <script>	    
-    	document.getElementById("printer-option").addEventListener("click", function() {
-    	    document.getElementById("printer-tab").style.display = "block";
-    	    document.getElementById("about-tab").style.display = "none";
-    	    this.classList.add("selected");
-    	    document.getElementById("about-option").classList.remove("selected");
-	});
 
-	document.getElementById("about-option").addEventListener("click", function() {
-    	    document.getElementById("printer-tab").style.display = "none";
-    	    document.getElementById("about-tab").style.display = "block";
-    	    this.classList.add("selected");
-    	    document.getElementById("printer-option").classList.remove("selected");
-	});
+        let optionButtons = document.querySelectorAll(".option")
+        function HideAll(){
+            optionButtons.forEach(button=>{
+                let dataName = button.getAttribute("data-name")
+                document.getElementById(dataName).style.display = "none";
+                button.classList.remove("selected");
+            })
+        }
+
+        optionButtons.forEach((button)=>{
+            let dataName = button.getAttribute("data-name")
+            let thisButton = button // Had to redeclare it as a different variable because the "button" variable is just a reference
+            button.addEventListener("click", ()=>{
+                HideAll()
+                document.getElementById(dataName).style.display = "block";
+    	        thisButton.classList.add("selected");
+            })
+        })
+
+        let devModeToggle = document.getElementById("developer-mode")
+        devModeToggle.checked = false
+        devModeToggle.addEventListener("change", (ev,)=>{
+            console.log("Dev Mode On: "+devModeToggle.checked)
+            if(devModeToggle.checked==true){
+                devModeToggle.checked = confirm("Are you sure you want to enable ExtPrint3r developer mode? This is intended only for developers and people who know what they are doing!")
+                if(!devModeToggle.checked)return;
+            }
+            devModeToggle.disabled=true
+
+            document.getElementById("dev-settings").style.display = "block"
+
+            // Enable developer functionality
+            document.getElementById("add-ext").addEventListener("click", async()=>{
+                let name = prompt("Name")
+                let url = prompt("Web accessible URL")
+                console.log(url)
+                let icon = prompt("Icon (Optional)") // TODO: add placeholder icon
+                
+                let success = await TryAddExtension(name, icon, url)
+                if(success){
+                    alert("Successfully added extension!")
+                }else{
+                    alert("Failed to add extension :(")
+                }
+            })
+        })
 
 	document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("printer-option").classList.add("selected");
+            document.querySelector("div.option").classList.add("selected");
 	});
 
 	document.querySelectorAll(".option").forEach(option => {
@@ -264,14 +311,60 @@
         }
 
         function getExtensionId(url) {
-            const regex = /chrome-extension:\/\/([^\/]+)/;
+            const regex = /^chrome-extension:\/\/([^\/]+)/;
             const match = url.match(regex);
             return match ? match[1] : 'Unknown ID';
         }
 
-        async function createExtensionButtons() {
-            const container = document.getElementById("div-container");
-      	    const extensions = {
+        const extContainer = document.getElementById("div-container");
+        async function TryAddExtension(name, icon, url){
+            console.log("b")
+            if (await checkExtensionURL(url)) {
+                console.log('a')
+                    const div = document.createElement("div");
+                    div.classList.add("extension-container");
+
+                    const img = document.createElement("img");
+                    img.src = icon || "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+                    img.onerror = function() {
+                        this.src = "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+                    };
+                    img.alt = `${name} Icon`;
+		    img.style.userSelect = "none";
+
+
+
+                    const infoDiv = document.createElement("div");
+                    infoDiv.classList.add("extension-info");
+
+                    const nameText = document.createElement("span");
+                    nameText.classList.add("extension-name");
+                    nameText.textContent = name;
+
+                    const idText = document.createElement("span");
+                    const extensionId = getExtensionId(url);
+                    idText.classList.add("extension-id");
+                    idText.textContent = `ID: ${extensionId}`;
+
+                    const button = document.createElement("button");
+                    button.textContent = "Disable";
+		    button.style.userSelect = "none";
+                    button.onclick = () => createPopup(name, icon, url, extensionId);
+
+                    infoDiv.appendChild(img);
+                    infoDiv.appendChild(nameText);
+                    div.appendChild(button);
+                    div.appendChild(idText);
+                    div.appendChild(infoDiv);
+                    extContainer.appendChild(div);
+                    
+                    return true
+                }
+
+
+        }
+
+        const extensions = {
 		"Securly (3rd ID)": "chrome-extension://ckecmkbnoanpgplccmnoikfmpcdladkc/fonts/Metropolis.css",
 		"Securly (2nd ID)": "chrome-extension://joflmkccibkooplaeoinecjbmdebglab/fonts/Metropolis.css",
         	"Securly (1st ID)": "chrome-extension://iheobagjkfklnlikgihanlhcddjoihkg/fonts/Metropolis.css",
@@ -343,50 +436,17 @@
 		"Lugus School": "https://lh3.googleusercontent.com/PCr-nq_15hjDNjuA5g9atstvXfJn4epdt56rtrcVi4VEVZbna-hNDOV1sHzTGi64cScpweDnmFVRI7S2ZagyYWGLB4k=s60",
       	    };
 
+        async function createExtensionButtons() {
+      	   
+
             let hasSupportedExtensions = false;
 
             for (const [name, url] of Object.entries(extensions)) {
-                if (await checkExtensionURL(url)) {
-                    const div = document.createElement("div");
-                    div.classList.add("extension-container");
-
-                    const img = document.createElement("img");
-                    img.src = icons[name] || "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
-                    img.onerror = function() {
-                        this.src = "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
-                    };
-                    img.alt = `${name} Icon`;
-		    img.style.userSelect = "none";
-
-                    const infoDiv = document.createElement("div");
-                    infoDiv.classList.add("extension-info");
-
-                    const nameText = document.createElement("span");
-                    nameText.classList.add("extension-name");
-                    nameText.textContent = name;
-
-                    const idText = document.createElement("span");
-                    const extensionId = getExtensionId(url);
-                    idText.classList.add("extension-id");
-                    idText.textContent = `ID: ${extensionId}`;
-
-                    const button = document.createElement("button");
-                    button.textContent = "Disable";
-		    button.style.userSelect = "none";
-                    button.onclick = () => createPopup(name, icons[name], url);
-
-                    infoDiv.appendChild(img);
-                    infoDiv.appendChild(nameText);
-                    div.appendChild(button);
-                    div.appendChild(idText);
-                    div.appendChild(infoDiv);
-                    container.appendChild(div);
-                    hasSupportedExtensions = true;
-                }
+              hasSupportedExtensions = hasSupportedExtensions?true:await TryAddExtension(name, icons[name], url)
             }
 
             if (!hasSupportedExtensions) {
-                container.innerHTML = "<p style='margin-left: 15px; font-size: 12px;'>No supported extensions installed \:(\</p>";
+                extContainer.innerHTML = "<p style='margin-left: 15px; font-size: 12px;'>No supported extensions installed \:(\</p>";
             }
         }
 	
@@ -464,7 +524,7 @@
 
         createExtensionButtons();
         
-        function createPopup(extName, extIcon, extPage) {
+        function createPopup(extName, extIcon, extPage, extId) {
             const overlay = document.createElement("div");
             overlay.style.position = "fixed";
             overlay.style.top = "0";
@@ -545,8 +605,7 @@
             header.appendChild(x);
 
             const instructions = document.createElement("p");
-            const extensionId = getExtensionId(extIcon);
-            const settingsUrl = "chrome://extensions?id=" + extensionId;
+            const settingsUrl = "chrome://extensions?id=" + extId;
             instructions.innerHTML = "Open the following URL in a new tab:<br><br><span>" + settingsUrl + "</span><br><br> Then go back to this one and press the button below which will open a new tab. Immediately press ctrl+tab and start spamming the switch called \"Allow Access to file URLs\" for about 5 seconds. Once you are done, close that tab and switch to the other one. Then, press cancel on the print dialog and the tab should close. If done correctly, the extension " + extName + " should've been killed.";
             instructions.style.padding = "15px";
             instructions.style.textAlign = "center";
