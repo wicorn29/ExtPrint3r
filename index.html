@@ -167,7 +167,7 @@
             width: 100% - 20px;
     	}
     
-    	#about-tab {
+    	#about-tab, #settings-tab {
     	    margin-left: 50px;
 	}
     
@@ -198,8 +198,9 @@
             <img src="https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/icon.png" width="50px" height="50px" style="margin-right: 10px;">
             <h2>ExtPrint3r</h2>
     	</div>
-        <div class="option" id="printer-option">The Exploit</div>
-        <div class="option" id="about-option">About</div>
+        <div class="option" data-name="printer-tab">The Exploit</div>
+        <div class="option" data-name="about-tab">About</div>
+        <div class="option" data-name="settings-tab">Settings</div>
         <div style="border-top: 1px solid #444; margin-top: 10px; padding-top: 10px; width: 100%;"></div>
         <p style="text-align: center; margin-left: -10px; user-select: none;">Made by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a></p>
     </div>
@@ -212,9 +213,33 @@
        	    <h2 style="user-select: none;">About ExtPrint3r</h2>
             <p style="user-select: none; line-height: 1.5;"><b>ExtPrint3r</b> is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to <b>ExtHang3r</b>. The exploit recreates the behavior of the <b>LTMEAT Print</b> method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long as they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
 	</div>
+    <div id="settings-tab" style="display: none;">
+        <h2 style="user-select: none;">Settings</h2>
+     <!-- <p style="user-select: none; line-height: 1.5;"><b>ExtPrint3r</b> is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to <b>ExtHang3r</b>. The exploit recreates the behavior of the <b>LTMEAT Print</b> method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long as they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p> -->
+    </div>
     </div>
     <script>	    
-    	document.getElementById("printer-option").addEventListener("click", function() {
+
+        let optionButtons = document.querySelectorAll(".option")
+        function HideAll(){
+            optionButtons.forEach(button=>{
+                let dataName = button.getAttribute("data-name")
+                document.getElementById(dataName).style.display = "none";
+                button.classList.remove("selected");
+            })
+        }
+
+        optionButtons.forEach((button)=>{
+            let dataName = button.getAttribute("data-name")
+            let thisButton = button // Had to redeclare it as a different variable because the "button" variable is just a reference
+            button.addEventListener("click", ()=>{
+                HideAll()
+                document.getElementById(dataName).style.display = "block";
+    	        thisButton.classList.add("selected");
+            })
+        })
+
+    /*	document.getElementById("printer-option").addEventListener("click", function() {
     	    document.getElementById("printer-tab").style.display = "block";
     	    document.getElementById("about-tab").style.display = "none";
     	    this.classList.add("selected");
@@ -226,10 +251,10 @@
     	    document.getElementById("about-tab").style.display = "block";
     	    this.classList.add("selected");
     	    document.getElementById("printer-option").classList.remove("selected");
-	});
+	});*/
 
 	document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("printer-option").classList.add("selected");
+            document.querySelector("div.option").classList.add("selected");
 	});
 
 	document.querySelectorAll(".option").forEach(option => {
