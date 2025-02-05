@@ -190,6 +190,59 @@
                 opacity: 0;
             }
         }
+
+	.switch {
+    	    position: relative;
+    	    display: inline-block;
+    	    width: 33px;
+    	    height: 20px;
+	}
+
+	.switch input {
+    	    opacity: 0;
+    	    width: 0;
+    	    height: 0;
+	}
+
+	.slider {
+    	    position: absolute;
+    	    cursor: pointer;
+    	    top: 0;
+    	    left: 0;
+    	    right: 0;
+    	    bottom: 0;
+    	    background-color: #444746;
+    	    border-radius: 15px;
+    	    border: 1.5px solid #8e918f;
+    	    transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+	}
+
+	.slider:before {
+    	    content: "";
+    	    position: absolute;
+    	    height: 12px;
+    	    width: 12px;
+    	    left: 4px;
+    	    top: 50%;
+    	    transform: translateY(-50%);
+    	    background-color: #8e918f;
+    	    border-radius: 50%;
+    	    transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
+	}
+
+	.switch:hover .slider:before {
+    	    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+	}
+
+	input:checked + .slider {
+    	    background-color: #a8c7fa;
+    	    border-color: #a8c7fa;
+	}
+
+	input:checked + .slider:before {
+    	    transform: translate(12px, -50%);
+    	    background-color: #062e6f;
+	}
     </style>
 </head>
 <body>
@@ -225,7 +278,20 @@
     </div>
     </div>
     <script>	    
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                let label = document.createElement("label");
+                label.classList.add("switch");
 
+                let slider = document.createElement("span");
+                slider.classList.add("slider");
+
+                checkbox.parentNode.insertBefore(label, checkbox);
+                label.appendChild(checkbox);
+                label.appendChild(slider);
+            });
+        });
+	    
         let optionButtons = document.querySelectorAll(".option")
         function HideAll(){
             optionButtons.forEach(button=>{
@@ -245,33 +311,39 @@
             })
         })
 
-        let devModeToggle = document.getElementById("developer-mode")
-        devModeToggle.checked = false
-        devModeToggle.addEventListener("change", (ev,)=>{
-            console.log("Dev Mode On: "+devModeToggle.checked)
-            if(devModeToggle.checked==true){
-                devModeToggle.checked = confirm("Are you sure you want to enable developer mode? This is intended only for people who know what they are doing!")
-                if(!devModeToggle.checked)return;
-            }
-            devModeToggle.disabled=true
+	let devModeToggle = document.getElementById("developer-mode");
+	devModeToggle.checked = false;
 
-            document.getElementById("dev-settings").style.display = "block"
+	devModeToggle.addEventListener("change", (ev) => {
+    	    console.log("Dev Mode On: " + devModeToggle.checked);
 
-            // Enable developer functionality
-            document.getElementById("add-ext").addEventListener("click", async()=>{
-                let name = prompt("Name")
-                let url = prompt("Web accessible URL")
-                console.log(url)
-                let icon = prompt("Icon (Optional)")
-                
-                let success = await TryAddExtension(name, icon, url)
-                if(success){
-                    alert("Successfully added extension!")
-                }else{
-                    alert("Failed to add extension :(")
+    	    if (devModeToggle.checked) {
+                devModeToggle.checked = confirm("Are you sure you want to enable developer mode? This is intended only for people who know what they are doing!");
+                if (!devModeToggle.checked) {
+                    document.getElementById("dev-settings").style.display = "none";
+                    return;
                 }
-            })
-        })
+    	    } else {
+                document.getElementById("dev-settings").style.display = "none";
+                return;
+            }
+
+    	    document.getElementById("dev-settings").style.display = "block";
+
+    	    document.getElementById("add-ext").addEventListener("click", async () => {
+                let name = prompt("Name");
+                let url = prompt("Web accessible URL");
+                console.log(url);
+                let icon = prompt("Icon (Optional)");
+
+                let success = await TryAddExtension(name, icon, url);
+                if (success) {
+                    alert("Successfully added extension!");
+                } else {
+                    alert("Failed to add extension :(");
+                }
+            });
+        });
 
 	document.addEventListener('DOMContentLoaded', function() {
             document.querySelector("div.option").classList.add("selected");
