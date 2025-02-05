@@ -311,7 +311,7 @@
         }
 
         function getExtensionId(url) {
-            const regex = /chrome-extension:\/\/([^\/]+)/;
+            const regex = /^chrome-extension:\/\/([^\/]+)/;
             const match = url.match(regex);
             return match ? match[1] : 'Unknown ID';
         }
@@ -349,7 +349,7 @@
                     const button = document.createElement("button");
                     button.textContent = "Disable";
 		    button.style.userSelect = "none";
-                    button.onclick = () => createPopup(name, icon, url);
+                    button.onclick = () => createPopup(name, icon, url, extensionId);
 
                     infoDiv.appendChild(img);
                     infoDiv.appendChild(nameText);
@@ -524,7 +524,7 @@
 
         createExtensionButtons();
         
-        function createPopup(extName, extIcon, extPage) {
+        function createPopup(extName, extIcon, extPage, extId) {
             const overlay = document.createElement("div");
             overlay.style.position = "fixed";
             overlay.style.top = "0";
@@ -605,8 +605,7 @@
             header.appendChild(x);
 
             const instructions = document.createElement("p");
-            const extensionId = getExtensionId(extIcon);
-            const settingsUrl = "chrome://extensions?id=" + extensionId;
+            const settingsUrl = "chrome://extensions?id=" + extId;
             instructions.innerHTML = "Open the following URL in a new tab:<br><br><span>" + settingsUrl + "</span><br><br> Then go back to this one and press the button below which will open a new tab. Immediately press ctrl+tab and start spamming the switch called \"Allow Access to file URLs\" for about 5 seconds. Once you are done, close that tab and switch to the other one. Then, press cancel on the print dialog and the tab should close. If done correctly, the extension " + extName + " should've been killed.";
             instructions.style.padding = "15px";
             instructions.style.textAlign = "center";
