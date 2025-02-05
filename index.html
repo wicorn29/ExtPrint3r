@@ -218,12 +218,11 @@
         <!-- Normal settings go below here -->
         <hr>
         <!-- Developer settings/actions go below here -->
-        <label for="developer-mode">ExtPrint3r Developer Mode</label><input id="developer-mode" type="checkbox"><br>
+        <label for="developer-mode">Developer Mode</label><input id="developer-mode" type="checkbox"><br>
         <div id="dev-settings" style="display: none;">
             <p>DO NOT COMPLAIN ABOUT FEATURE IN DEV MODE NOT WORKING, THIS IS ONLY FOR PEOPLE WHO KNOW WHAT THEY ARE DOING</p>
             <button style="min-width:250px;" id="add-ext">Temporarily Add Extension To List</button>
         </div>
-     <!-- <p style="user-select: none; line-height: 1.5;"><b>ExtPrint3r</b> is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to <b>ExtHang3r</b>. The exploit recreates the behavior of the <b>LTMEAT Print</b> method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long as they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p> -->
     </div>
     </div>
     <script>	    
@@ -252,7 +251,7 @@
         devModeToggle.addEventListener("change", (ev,)=>{
             console.log("Dev Mode On: "+devModeToggle.checked)
             if(devModeToggle.checked==true){
-                devModeToggle.checked = confirm("Are you sure you want to enable ExtPrint3r developer mode? This is intended only for developers and people who know what they are doing!")
+                devModeToggle.checked = confirm("Are you sure you want to enable developer mode? This is intended only for people who know what they are doing!")
                 if(!devModeToggle.checked)return;
             }
             devModeToggle.disabled=true
@@ -264,7 +263,7 @@
                 let name = prompt("Name")
                 let url = prompt("Web accessible URL")
                 console.log(url)
-                let icon = prompt("Icon (Optional)") // TODO: add placeholder icon
+                let icon = prompt("Icon (Optional)")
                 
                 let success = await TryAddExtension(name, icon, url)
                 if(success){
@@ -360,8 +359,6 @@
                     
                     return true
                 }
-
-
         }
 
         const extensions = {
