@@ -271,16 +271,14 @@
        	    <h2 style="user-select: none;">About ExtPrint3r</h2>
             <p style="user-select: none; line-height: 1.5;"><b>ExtPrint3r</b> is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to <b>ExtHang3r</b>. The exploit recreates the behavior of the <b>LTMEAT Print</b> method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long as they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
 	</div>
-    <div id="settings-tab" style="display: none;">
-        <h2 style="user-select: none;">Settings</h2>
-        <!-- Normal settings go below here -->
-        <hr>
-        <!-- Developer settings/actions go below here -->
-        <label for="developer-mode" style="pointer-events: none;">Developer Mode</label><input id="developer-mode" type="checkbox"><br>
-        <div id="dev-settings" style="display: none;">
-            <button style="min-width:250px;" id="add-ext">Temporarily Add Extension To List</button>
+   	<div id="settings-tab" style="display: none;">
+            <h2 style="user-select: none;">Settings</h2>
+             <div style="border-top: 1px solid #444; margin-bottom: 10px; padding-top: 10px; width: 100%;"></div>
+             <label for="developer-mode" style="pointer-events: none;">Developer Mode</label><input id="developer-mode" type="checkbox"><br>
+             <div id="dev-settings" style="display: none;">
+                 <button style="min-width:225px;" id="add-ext">Temporarily Add Extension To List</button>
+             </div>
         </div>
-    </div>
     </div>
     <script>	    
         document.addEventListener("DOMContentLoaded", function () {
@@ -336,10 +334,11 @@
     	    document.getElementById("dev-settings").style.display = "block";
 
     	    document.getElementById("add-ext").addEventListener("click", async () => {
-                let name = prompt("Name");
-                let url = prompt("Web accessible URL");
+		this.blur();
+                let name = prompt("Extension Name");
+                let url = prompt("Frame URL (must be under web_accessible_resources)");
                 console.log(url);
-                let icon = prompt("Icon (Optional)");
+                let icon = prompt("Icon URL (optional)");
 
                 let success = await TryAddExtension(name, icon, url);
                 if (success) {
@@ -393,48 +392,44 @@
 
         const extContainer = document.getElementById("div-container");
         async function TryAddExtension(name, icon, url){
-            console.log("b")
             if (await checkExtensionURL(url)) {
-                console.log('a')
-                    const div = document.createElement("div");
-                    div.classList.add("extension-container");
+                const div = document.createElement("div");
+                div.classList.add("extension-container");
 
-                    const img = document.createElement("img");
-                    img.src = icon || "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
-                    img.onerror = function() {
-                        this.src = "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
-                    };
-                    img.alt = `${name} Icon`;
-		    img.style.userSelect = "none";
+                const img = document.createElement("img");
+                img.src = icon || "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+                img.onerror = function() {
+                    this.src = "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+                };
+                img.alt = `${name} Icon`;
+		img.style.userSelect = "none";
 
+                const infoDiv = document.createElement("div");
+                infoDiv.classList.add("extension-info");
 
+                const nameText = document.createElement("span");
+                nameText.classList.add("extension-name");
+                nameText.textContent = name;
 
-                    const infoDiv = document.createElement("div");
-                    infoDiv.classList.add("extension-info");
+                const idText = document.createElement("span");
+                const extensionId = getExtensionId(url);
+                idText.classList.add("extension-id");
+                idText.textContent = `ID: ${extensionId}`;
 
-                    const nameText = document.createElement("span");
-                    nameText.classList.add("extension-name");
-                    nameText.textContent = name;
+                const button = document.createElement("button");
+                button.textContent = "Disable";
+		button.style.userSelect = "none";
+                button.onclick = () => createPopup(name, icon, url, extensionId);
 
-                    const idText = document.createElement("span");
-                    const extensionId = getExtensionId(url);
-                    idText.classList.add("extension-id");
-                    idText.textContent = `ID: ${extensionId}`;
-
-                    const button = document.createElement("button");
-                    button.textContent = "Disable";
-		    button.style.userSelect = "none";
-                    button.onclick = () => createPopup(name, icon, url, extensionId);
-
-                    infoDiv.appendChild(img);
-                    infoDiv.appendChild(nameText);
-                    div.appendChild(button);
-                    div.appendChild(idText);
-                    div.appendChild(infoDiv);
-                    extContainer.appendChild(div);
+                infoDiv.appendChild(img);
+                infoDiv.appendChild(nameText);
+                div.appendChild(button);
+                div.appendChild(idText);
+                div.appendChild(infoDiv);
+                extContainer.appendChild(div);
                     
-                    return true
-                }
+                return true;
+            }
         }
 
         const extensions = {
@@ -510,8 +505,6 @@
       	    };
 
         async function createExtensionButtons() {
-      	   
-
             let hasSupportedExtensions = false;
 
             for (const [name, url] of Object.entries(extensions)) {
@@ -628,7 +621,10 @@
             header.style.borderBottom = "1px solid #444";
 
             const icon = document.createElement("img");
-            icon.src = extIcon;
+            icon.src = extIcon || "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+	    icon.onerror = function() {
+                this.src = "https://raw.githubusercontent.com/Blobby-Boi/ExtPrint3r/refs/heads/main/extension.png";
+            };
             icon.style.width = "32px";
             icon.style.height = "32px";
             icon.style.marginLeft = "10px";
