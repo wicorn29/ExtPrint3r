@@ -196,6 +196,7 @@
     	    display: inline-block;
     	    width: 33px;
     	    height: 20px;
+	    margin-left: 10px
 	}
 
 	.switch input {
@@ -243,6 +244,10 @@
     	    transform: translate(12px, -50%);
     	    background-color: #062e6f;
 	}
+
+	#dev-settings {
+	    margin-top: 15px;
+	}
     </style>
 </head>
 <body>
@@ -271,7 +276,7 @@
         <!-- Normal settings go below here -->
         <hr>
         <!-- Developer settings/actions go below here -->
-        <label for="developer-mode">Developer Mode</label><input id="developer-mode" type="checkbox"><br>
+        <label for="developer-mode" style="pointer-events: none;">Developer Mode</label><input id="developer-mode" type="checkbox"><br>
         <div id="dev-settings" style="display: none;">
             <button style="min-width:250px;" id="add-ext">Temporarily Add Extension To List</button>
         </div>
