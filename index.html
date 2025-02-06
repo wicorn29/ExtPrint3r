@@ -516,16 +516,15 @@
       	    };
 
 	async function createExtensionButtons() {
-    	    let hasSupportedExtensions = false;
-    	    const promises = Object.entries(extensions).map(async ([name, url]) => {
-        	const success = await TryAddExtension(name, icons[name], url);
-        	if (success) hasSupportedExtensions = true;
-    	    });
+   	    let hasSupportedExtensions = false;
 
-    	    await Promise.all(promises);
+    	    for (const [name, url] of Object.entries(extensions)) {
+                const success = await TryAddExtension(name, icons[name], url);
+                if (success) hasSupportedExtensions = true;
+    	    }
 
     	    if (!hasSupportedExtensions) {
-        	extContainer.innerHTML = "<p style='margin-left: 15px; font-size: 12px;'>No supported extensions installed :(</p>";
+                extContainer.innerHTML = "<p style='margin-left: 15px; font-size: 12px;'>No supported extensions installed :(</p>";
     	    }
 	}
 	
