@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -309,7 +310,7 @@
 
         optionButtons.forEach((button)=>{
             let dataName = button.getAttribute("data-name")
-            let thisButton = button // Had to redeclare it as a different variable because the "button" variable is just a reference
+            let thisButton = button;
             button.addEventListener("click", ()=>{
                 HideAll()
                 document.getElementById(dataName).style.display = "block";
@@ -539,7 +540,7 @@
 	}
 	
     	const iframeCountEl = document.querySelector("#iframe-count")
-    	iframeCountEl.addEventListener("change", ()=>{
+    	iframeCountEl.addEventListener("input", ()=>{
             document.querySelector("#iframe-count-display").textContent = iframeCountEl.value
    	})
 	    
