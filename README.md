@@ -15,7 +15,7 @@ data:text/html;charset=utf-8,%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3
 > [!WARNING]
 > If this guide fails for you, do not make an issue on it, this isn't for everyone.  
 Step 1.
-First find the extension ID. To do this go to chrome://extensions and click on the extension of choice. Then look for the ID and copy it
+First find the extension ID. To do this go to chrome://extensions and click on the extension. Then look for the ID and copy it.
 ![image](https://github.com/user-attachments/assets/2846982e-d22b-4b38-acad-45d465e7c24f)
 
 Step 2.
