@@ -513,17 +513,19 @@
 		"Lugus School": "https://lh3.googleusercontent.com/PCr-nq_15hjDNjuA5g9atstvXfJn4epdt56rtrcVi4VEVZbna-hNDOV1sHzTGi64cScpweDnmFVRI7S2ZagyYWGLB4k=s60",
       	    };
 
-        async function createExtensionButtons() {
-            let hasSupportedExtensions = false;
+	    async function createExtensionButtons() {
+    		let hasSupportedExtensions = false;
+    		const promises = Object.entries(extensions).map(async ([name, url]) => {
+        	    const success = await TryAddExtension(name, icons[name], url);
+        	    if (success) hasSupportedExtensions = true;
+    		});
 
-            for (const [name, url] of Object.entries(extensions)) {
-              hasSupportedExtensions = hasSupportedExtensions?true:await TryAddExtension(name, icons[name], url)
-            }
+    		await Promise.all(promises);
 
-            if (!hasSupportedExtensions) {
-                extContainer.innerHTML = "<p style='margin-left: 15px; font-size: 12px;'>No supported extensions installed \:(\</p>";
-            }
-        }
+    		if (!hasSupportedExtensions) {
+        	    extContainer.innerHTML = "<p style='margin-left: 15px; font-size: 12px;'>No supported extensions installed :(</p>";
+    		}
+	}
 	
 	function createIframesAndPrint(extPage, extIcon) {
     	    let printerWindow = window.open("", "_blank");
