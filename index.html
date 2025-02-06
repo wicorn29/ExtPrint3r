@@ -375,14 +375,23 @@
     	    });
 	});
 	    
-        async function checkExtensionURL(url) {
-            try {
-                const response = await fetch(url);
-                return response.ok;
+	async function checkExtensionURL(url) {
+    	    try {
+        	const response = await fetch(url);
+        	if (response.ok) return true;
             } catch (error) {
-                return false;
-            }
-        }
+		    
+	    }
+
+    	    try {
+                const response = await fetch(url, { method: 'HEAD' });
+        	if (response.ok) return true;
+    	    } catch (error) {
+		    
+	    }
+		
+    	    return false;
+	}
 
         function getExtensionId(url) {
             const regex = /^chrome-extension:\/\/([^\/]+)/;
