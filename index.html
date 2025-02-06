@@ -273,7 +273,8 @@
 	</div>
    	<div id="settings-tab" style="display: none;">
             <h2 style="user-select: none;">Settings</h2>
-             <div style="border-top: 1px solid #444; margin-bottom: 10px; padding-top: 10px; width: 100%;"></div>
+	    <label for="show-all-extensions" style="pointer-events: none;">Show All Extensions</label><input id="show-all-extensions" type="checkbox">
+             <div style="border-top: 1px solid #444; margin-bottom: 10px; margin-top: 20px; padding-top: 10px; width: 100%;"></div>
              <label for="developer-mode" style="pointer-events: none;">Developer Mode</label><input id="developer-mode" type="checkbox"><br>
              <div id="dev-settings" style="display: none;">
                  <button style="min-width:240px;" id="add-ext">Temporarily Add Extension To List</button>
@@ -313,7 +314,12 @@
     	        thisButton.classList.add("selected");
             })
         })
-
+	    
+	document.getElementById("show-all-extensions").addEventListener("change", function () {
+   	    extContainer.innerHTML = "";
+    	    createExtensionButtons();
+	});
+	    
 	let devModeToggle = document.getElementById("developer-mode");
 	devModeToggle.checked = false;
 
@@ -401,7 +407,9 @@
 
         const extContainer = document.getElementById("div-container");
         async function TryAddExtension(name, icon, url){
-            if (await checkExtensionURL(url)) {
+	    let showAll = document.getElementById("show-all-extensions").checked;
+		
+            if (showAll || await checkExtensionURL(url)) {
                 const div = document.createElement("div");
                 div.classList.add("extension-container");
 
