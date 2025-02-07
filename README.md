@@ -16,18 +16,18 @@ data:text/html;charset=utf-8,%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3
 > If this guide fails for you, do not make an issue on it, this isn't for everyone.
 
 ### Step 1.<br>
-First find the extension ID. To do this go to chrome://extensions and click on the extension of choice. Then look for the ID and copy it.
+First, you must find the extension's ID. To do this go to `chrome://extensions` and click on the extension of choice. Then look for the ID and copy it.
 ![image](https://github.com/user-attachments/assets/2846982e-d22b-4b38-acad-45d465e7c24f)<br>
-If the ID doesn't show up, you can also find it in the URL.
+If the ID doesn't show up like on the image above, you can also find it in the URL.
 
 ### Step 2.<br>
-Once you have the ID you can replace placeholder-id with the ID you got earlier in: "chrome-extension://placeholder-id/manifest.json" In my example, this would give me "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/manifest.json"
-Now that you have this URL you can go to it and find a web accessible resource with an explicit file name. These are typically near the bottom of the file. More specifically you will want to look for something like this:
+Once you have the extension's ID, you can open the following link: (replace id-here with the ID you got earlier) `chrome-extension://id-here/manifest.json` In my example, this would be "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/manifest.json"
+Now that you have the manifest URL you can go to it and find a web accessible resource with an explicit file name. These are typically near the bottom of the file. You'll want to look for something like this:
 ![image](https://github.com/user-attachments/assets/de656ecf-ea46-4b5a-a7b5-c0a00c749126)
 
 ### Step 3.<br>
-Now you can copy that and replace the "manifest.json" part of the URL with your resource. In my example it would look like this now: "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/data/content_script/page_context/inject.js"
-Go to this URL and confirm it works, you may have to repeat step 2 and this step until you find a URL that works. 
+Now you can copy any of the resources and replace the "manifest.json" part of the URL with your resource. In my example it would look like this now: "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/data/content_script/page_context/inject.js"
+Go to this URL and confirm it loads, you may have to repeat step 2 and this step until you find a URL that works.
 
 ### Step 4.<br>
-Congrats, you can now enable developer mode and add a temporary extension. Use this web accessible resource url when you are prompted for it.
+Congrats! You can now enable developer mode and add a temporary extension. Use this web accessible resource URL when you are prompted for it.
