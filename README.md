@@ -21,7 +21,7 @@ First, you must find the extension's ID. To do this go to `chrome://extensions` 
 If the ID doesn't show up like on the image above, you can also find it in the URL.
 
 ### Step 2.<br>
-Once you have the extension's ID, open the following link (replace id-here with the ID you got earlier): `chrome-extension://id-here/manifest.json` In my example, this would be "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/manifest.json"
+Once you have the extension's ID, open the following link: `chrome-extension://id-here/manifest.json` (replace id-here with the ID you got earlier) In my example, this would be "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/manifest.json"
 Now that you have the manifest URL you can go to it and find a web accessible resource with an explicit file name. These are typically near the bottom of the file. You'll want to look for something like this:<br>
 ![image](https://github.com/user-attachments/assets/de656ecf-ea46-4b5a-a7b5-c0a00c749126)
 
