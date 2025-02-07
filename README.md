@@ -16,8 +16,9 @@ data:text/html;charset=utf-8,%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3
 > If this guide fails for you, do not make an issue on it, this isn't for everyone.
 
 Step 1.
-First find the extension ID. To do this go to chrome://extensions and click on the extension. Then look for the ID and copy it. If the ID doesn't show up, you can also find it in the URL.
+First find the extension ID. To do this go to chrome://extensions and click on the extension. Then look for the ID and copy it.
 ![image](https://github.com/user-attachments/assets/2846982e-d22b-4b38-acad-45d465e7c24f)
+If the ID doesn't show up, you can also find it in the URL.
 
 Step 2.
 Once you have the ID you can replace placeholder-id with the ID you got earlier in: "chrome-extension://placeholder-id/manifest.json" In my example, this would give me "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/manifest.json"
