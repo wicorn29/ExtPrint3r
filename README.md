@@ -16,13 +16,13 @@ data:text/html;charset=utf-8,%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3
 > If this guide fails for you, do not make an issue on it, this isn't for everyone.
 
 ### Step 1.<br>
-First, you must find the extension's ID. To do this go to `chrome://extensions` and click on the extension of choice. Then look for the ID and copy it.
+First, you must find the extension's ID. To do this go to `chrome://extensions` and click on the extension of choice. Then look for the ID and copy it.<br>
 ![image](https://github.com/user-attachments/assets/2846982e-d22b-4b38-acad-45d465e7c24f)<br>
 If the ID doesn't show up like on the image above, you can also find it in the URL.
 
 ### Step 2.<br>
 Once you have the extension's ID, you can open the following link: (replace id-here with the ID you got earlier) `chrome-extension://id-here/manifest.json` In my example, this would be "chrome-extension://dmghijelimhndkbmpgbldicpogfkceaj/manifest.json"
-Now that you have the manifest URL you can go to it and find a web accessible resource with an explicit file name. These are typically near the bottom of the file. You'll want to look for something like this:
+Now that you have the manifest URL you can go to it and find a web accessible resource with an explicit file name. These are typically near the bottom of the file. You'll want to look for something like this:<br>
 ![image](https://github.com/user-attachments/assets/de656ecf-ea46-4b5a-a7b5-c0a00c749126)
 
 ### Step 3.<br>
