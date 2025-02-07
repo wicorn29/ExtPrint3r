@@ -13,7 +13,7 @@ data:text/html;charset=utf-8,%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3
 
 ## How to add custom extensions to ExtPrint3r
 > [!WARNING]
-> If this guide fails for you, do not make an issue on it, this isn't for everyone.
+> If this guide fails for you do not make an issue on it, this is only for advanced users.
 
 ### Step 1.<br>
 First, you must find the extension's ID. To do this go to `chrome://extensions` and click on the extension of choice. Then look for the ID and copy it.<br>
