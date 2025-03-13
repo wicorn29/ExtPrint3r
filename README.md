@@ -3,6 +3,9 @@ ExtPrint3r is an exploit created by [Blobby Boi](https://github.com/Blobby-Boi/)
 
 > It is heavily recommended that you disable the V8 optimizer (chrome://settings/content/v8) prior to using this exploit! This was found by [ts353](https://github.com/ts353).
 
+## See list of webhosts
+If the data URL below doesn't work, feel free to try some of the [webhosts](hosts.md)
+
 ## How do I use it?
 To use the exploit, paste the following url into your url bar. Then, click on the disable button next to the extension and follow the instructions on the page.
 
