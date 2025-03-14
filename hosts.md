@@ -4,6 +4,7 @@ This markdown file lists both official and unofficial links to ExtPrint3r. If Gi
 ## Official Hosts
 Official hosts are trustworthy hosts and are maintained by Blobby-Boi. Use these if you can.
 - [https://extprint3r.github.io/](https://extprint3r.github.io/) (Recommended)
+- [https://extprint3r.pages.dev/](https://extprint3r.pages.dev/) (Recommended)
 - [https://blobby-boi.github.io/ExtPrint3r/](https://blobby-boi.github.io/ExtPrint3r/)
 
 ## Unnofficial Hosts
