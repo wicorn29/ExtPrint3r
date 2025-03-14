@@ -10,3 +10,4 @@ Official hosts are trustworthy hosts and are maintained by Blobby-Boi. Use these
 ## Unnofficial Hosts
 Unofficial hosts are by people in the community. Use at your own risk. These are not always up-to-date and may be buggy.
 - [https://site.nhd.org/50982515/home](https://site.nhd.org/50982515/home)
+- [https://nettleweb.com/xr/m714rqsc/](https://nettleweb.com/xr/m714rqsc/)
