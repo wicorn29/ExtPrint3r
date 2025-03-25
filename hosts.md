@@ -14,12 +14,13 @@ Official hosts are trustworthy hosts and are maintained by Blobby-Boi. Use these
 
 Unofficial hosts are by people in the community. Use at your own risk. These are not always up-to-date and may be buggy.
 
+- [https://ext-remover.net/detail/ExtPrint3r/](https://ext-remover.net/detail/ExtPrint3r/)
 - [https://site.nhd.org/50982515/home](https://site.nhd.org/50982515/home)
 - [https://extprint3r.edublue.org](https://extprint3r.edublue.org)
 - [https://nettleweb.com/xr/m714rqsc/](https://nettleweb.com/xr/m714rqsc/)
 - [http://extprint3r.killsecurly.com](http://extprint3r.killsecurly.com)
 - [https://gduip.github.io/Chrome-exploits/extprint3r/](https://gduip.github.io/Chrome-exploits/extprint3r/)
-- [https://ext-remover.net/detail/ExtPrint3r/](https://ext-remover.net/detail/ExtPrint3r/)
+- [https://xtest.nekoweb.org/extp.html](https://xtest.nekoweb.org/extp.html)
 
 ## Hosting Guide
 
