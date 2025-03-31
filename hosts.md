@@ -21,7 +21,7 @@ Unofficial hosts are by people in the community. Use at your own risk. These are
 - [http://extprint3r.killsecurly.com](http://extprint3r.killsecurly.com)
 - [https://gduip.github.io/Chrome-exploits/extprint3r/](https://gduip.github.io/Chrome-exploits/extprint3r/)
 - [https://xtest.nekoweb.org/extp.html](https://xtest.nekoweb.org/extp.html)
-- [https://us4-d.global.ssl.fastly.net/pages/iframe2?url=/pages/apps/print3r](https://us4-d.global.ssl.fastly.net/pages/iframe2?url=/pages/apps/print3r)
+- [https://us4-d.global.ssl.fastly.net/pages/apps/print3r](https://us4-d.global.ssl.fastly.net/pages/apps/print3r)
 
 ## Hosting Guide
 
