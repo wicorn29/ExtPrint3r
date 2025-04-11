@@ -792,8 +792,10 @@
             printButton.style.marginBottom = "15px";
             printButton.onclick = () => {
                 createIframesAndPrint(extPage, extIcon);
-                instructions.innerHTML = extName + ' has been killed!';
-		popup.removeChild(buttonContainer);
+		setTimeout(() => {
+                    instructions.innerHTML = extName + ' has been killed!';
+		    popup.removeChild(buttonContainer);
+		}, 500);
             };
 
             buttonContainer.appendChild(printButton);
