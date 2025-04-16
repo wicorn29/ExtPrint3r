@@ -1,6 +1,6 @@
 # ExtPrint3r Hosts
 
-This markdown file lists both official and unofficial links to ExtPrint3r. If data:// URIs are blocked you can try some of the links listed here.
+This markdown file lists both official and unofficial links to ExtPrint3r. If ``data:`` URIs are blocked you can try some of the links listed here.
 
 ## Official Hosts
 
